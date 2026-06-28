@@ -1,3 +1,6 @@
 {"id":"case_001","actual_tool":"calculator","actual_args":{"expression":"23 * 7"}}
 {"id":"case_002","actual_tool":"search_appointments","actual_args":{"patient_name":"王丽"}}
 {"id":"case_003","actual_tool":"search_knowledge_base","actual_args":{"query":"种植牙术后注意事项"}}
+{"id":"case_004","actual_tool":"search_knowledge_base","actual_args":{"patient_name":"李雷"}}
+{"id":"case_005","actual_tool":"search_appointments","actual_args":{}}
+{"id":"case_006","actual_tool":"search_knowledge_base","actual_args":{"query":"种植牙后注意事项"}}

@@ -1,32 +1,30 @@
-import json
+import argparse
+import agent_tool_lab.cases as c
+import agent_tool_lab.evaluator as evaluator
 
 
 def main():
-    cases = load_json("examples/simple/cases.jsonl")
-    outputs = load_json("examples/simple/model_outputs.jsonl")
-    cases_num = len(cases)
-    outputs_num = len(outputs)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-c", "--cases", default="examples/simple/cases.jsonl")
+    parser.add_argument("-o", "--outputs", default="examples/simple/model_outputs.jsonl")
+    args = parser.parse_args()
+    cases = c.load_cases(args.cases)
+    outputs = c.load_outputs(args.outputs)
+    results = evaluator.evaluate_all(cases, outputs)
 
-    print(f"拥有case数据 {cases_num} 条")
-    print(f"拥有output数据 {outputs_num} 条")
-    print("Cases:")
-    for case in cases:
-        print(f"- {case['id']} | {case['input']} | expected_tool = {case['expected_tool']}")
-    print("Outputs:")
-    for output in outputs:
-        print(f"- {output['id']} | actual_tool = {output['actual_tool']}")
+    print("Summary")
+    print(f"Total cases: {results['total_cases']}")
+    print(f"Tool selection accuracy: {results['tool_accuracy']}")
+    print(f"Argument accuracy: {results['arg_accuracy']}")
 
-def load_json(path):
-    items = []
-    with open(path, "r", encoding="utf-8") as file:
-        for line in file:
-            try:
-                item = json.loads(line)
-            except json.decoder.JSONDecodeError:
-                print(f"Invalid JSON in {path}")
-                raise SystemExit(1)
-            items.append(item)
-    return items
+    print("Results")
+    for result in results["results"]:
+        status = "PASS" if result["passed"] else "FAIL"
+        failure_reasons = " ".join(result["failure_reasons"])
+        if failure_reasons:
+            print(f"{result['id']} {status} {failure_reasons}")
+        else:
+            print(f"{result['id']} {status}")
 
 
 if __name__ == "__main__":
