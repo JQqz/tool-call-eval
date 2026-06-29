@@ -1,6 +1,7 @@
 # Python bytecode/cache files
 __pycache__/
 *.py[cod]
+.pytest_cache/
 
 # Virtual environments and local tool caches
 .venv/

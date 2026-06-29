@@ -5,11 +5,15 @@ def load_jsonl(path):
     # JSONL 文件是一行一个 JSON 对象，所以这里逐行读取并解析。
     items = []
     with open(path, "r", encoding="utf-8") as file:
+        line_number = 0
         for line in file:
+            line_number += 1
+            if not line.strip():
+                continue
             try:
                 item = json.loads(line)
             except json.decoder.JSONDecodeError:
-                print(f"Invalid JSON in {path}")
+                print(f"Invalid JSON in {path} at line {line_number}")
                 raise SystemExit(1)
             items.append(item)
     return items
