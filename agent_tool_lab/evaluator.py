@@ -52,7 +52,7 @@ def evaluate_case(case, output):
 def evaluate_all(cases, outputs):
     # 把 outputs 列表转成按 id 查询的字典，后面可以用 case id 快速找输出。
     results = []
-    eva_results = {}
+    evaluation = {}
     outputs_by_id = {}
     tool_accuracy_count = 0
     arg_accuracy_count = 0
@@ -78,10 +78,10 @@ def evaluate_all(cases, outputs):
     tool_accuracy = round(tool_accuracy_count / total_cases * 100 , 1)
     arg_accuracy = round(arg_accuracy_count / total_cases * 100 , 1)
 
-    eva_results["total_cases"] = total_cases
-    eva_results["tool_accuracy"] = tool_accuracy
-    eva_results["arg_accuracy"] = arg_accuracy
-    eva_results["results"] = results
-    return eva_results
+    evaluation["total_cases"] = total_cases
+    evaluation["tool_accuracy"] = tool_accuracy
+    evaluation["arg_accuracy"] = arg_accuracy
+    evaluation["results"] = results
+    return evaluation
 
 

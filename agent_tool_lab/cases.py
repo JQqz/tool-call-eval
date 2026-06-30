@@ -21,7 +21,13 @@ class ModelOutput(BaseModel):
 # 读取 JSONL 文件，逐行解析 JSON，并用传入的校验函数检查每条数据。
 def load_jsonl(path, validate_item):
     items = []
-    with open(path, "r", encoding="utf-8") as file:
+    try:
+        file = open(path, "r", encoding="utf-8")
+    except FileNotFoundError:
+        print(f"文件不存在：{path}")
+        raise SystemExit(1)
+
+    with file:
         line_number = 0
         for line in file:
             line_number += 1
@@ -30,15 +36,14 @@ def load_jsonl(path, validate_item):
             try:
                 item = json.loads(line)
             except json.decoder.JSONDecodeError:
-                print(f"Invalid JSON in {path} at line {line_number}")
+                print(f"JSON 格式错误：文件 {path} 第 {line_number} 行")
                 raise SystemExit(1)
             try:
                 item = validate_item(item)
             except ValidationError as error:
                 # Pydantic 的错误里带有字段位置，这里提取出来放进第一行摘要。
                 fields = [err["loc"][0] for err in error.errors()]
-                print(f"Invalid schema in {path} at line {line_number}: fields {fields}")
-                print(error)
+                print(f"数据结构错误：文件 {path} 第 {line_number} 行，字段 {fields}")
                 raise SystemExit(1)
             items.append(item)
     return items

@@ -88,8 +88,8 @@ def test_load_cases_invalid_json_reports_line(tmp_path, capsys):
         assert False, "load_cases should exit when JSON is invalid"
 
     captured = capsys.readouterr()
-    assert "Invalid JSON" in captured.out
-    assert "line 2" in captured.out
+    assert "JSON 格式错误" in captured.out
+    assert "第 2 行" in captured.out
 
 
 def test_load_cases_invalid_schema_reports_line_and_field(tmp_path, capsys):
@@ -107,6 +107,6 @@ def test_load_cases_invalid_schema_reports_line_and_field(tmp_path, capsys):
         assert False, "load_cases should exit when schema is invalid"
 
     captured = capsys.readouterr()
-    assert "Invalid schema" in captured.out
-    assert "line 1" in captured.out
+    assert "数据结构错误" in captured.out
+    assert "第 1 行" in captured.out
     assert "input" in captured.out

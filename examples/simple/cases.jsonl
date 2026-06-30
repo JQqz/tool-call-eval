@@ -4,5 +4,3 @@
 {"id":"case_004","input":"帮我查一下患者李雷的预约","expected_tool":"search_appointments","expected_args":{"patient_name":"李雷"}}
 {"id":"case_005","input":"帮我查一下患者赵敏的预约","expected_tool":"search_appointments","expected_args":{"patient_name":"赵敏"}}
 {"id":"case_006","input":"帮我搜索一下拔牙后的饮食注意事项","expected_tool":"search_knowledge_base","expected_args":{"query":"拔牙后的饮食注意事项"}}
-{"id":"case_bad_001","expected_tool":"calculator","expected_args":{"expression":"1 + 1"}}
-{"id":"case_bad_002","input":"帮我算一下 1 + 1","expected_tool":"calculator","expected_args":"expression=1 + 1"}
