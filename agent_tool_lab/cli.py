@@ -22,6 +22,7 @@ def main():
         print("                   默认：examples/simple/model_outputs.jsonl")
         print("  -r, --report     Markdown 报告输出路径")
         print("                   不传则只在终端打印结果")
+        print("  -v, --verbose    显示每条 case 的通过/失败明细")
         return
 
     # 先检查需要文件路径的参数，避免 argparse 输出英文错误提示。
@@ -66,12 +67,25 @@ def main():
         "--report",
         default=None,
     )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+    )
     # parse_known_args 会把认识的参数放进 args，把不认识的参数放进 unknown_args。
     args, unknown_args = parser.parse_known_args()
     if unknown_args:
         print(f"未知参数：{' '.join(unknown_args)}")
         print("运行 python -m agent_tool_lab.cli --help 查看用法。")
         raise SystemExit(1)
+
+    # 报告目录不存在时提前提醒，避免评测跑完后才发现报告写不了。
+    if args.report:
+        report_dir = os.path.dirname(args.report)
+        if report_dir and not os.path.isdir(report_dir):
+            print(f"报告目录不存在：{report_dir}")
+            print("请先创建目录，或者换一个已经存在的报告输出路径。")
+            raise SystemExit(1)
 
     # 读取测试用例和模型输出，然后交给 evaluator 做批量评分。
     cases = c.load_cases(args.cases)
@@ -84,35 +98,30 @@ def main():
     print(f"工具选择准确率：{results['tool_accuracy']:.1f}%")
     print(f"参数匹配准确率：{results['arg_accuracy']:.1f}%")
 
-    # 打印每条 case 的通过情况和失败原因。
-    failure_reason_names = {
-        "wrong_tool": "工具选择错误",
-        "missing_arg": "缺少参数",
-        "wrong_arg_value": "参数值错误",
-        "missing_output": "缺少模型输出",
-    }
+    if args.verbose:
+        # 打印每条 case 的通过情况和失败原因。
+        failure_reason_names = {
+            "wrong_tool": "工具选择错误",
+            "missing_arg": "缺少参数",
+            "wrong_arg_value": "参数值错误",
+            "missing_output": "缺少模型输出",
+        }
 
-    print("结果明细")
-    for result in results["results"]:
-        status = "通过" if result["passed"] else "失败"
-        reason_names = []
-        for reason in result["failure_reasons"]:
-            reason_names.append(failure_reason_names.get(reason, reason))
-        failure_reasons = " ".join(reason_names)
-        if failure_reasons:
-            print(f"{result['id']} {status} {failure_reasons}")
-        else:
-            print(f"{result['id']} {status}")
+        print("结果明细")
+        for result in results["results"]:
+            status = "通过" if result["passed"] else "失败"
+            reason_names = []
+            for reason in result["failure_reasons"]:
+                reason_names.append(failure_reason_names.get(reason, reason))
+            failure_reasons = " ".join(reason_names)
+            if failure_reasons:
+                print(f"{result['id']} {status} {failure_reasons}")
+            else:
+                print(f"{result['id']} {status}")
 
     # 如果用户传了 --report，就把 Markdown 报告写入指定文件。
     if args.report:
         markdown = report.generate_markdown_report(results)
-        report_dir = os.path.dirname(args.report)
-        # 只允许写入已经存在的目录。
-        if report_dir and not os.path.isdir(report_dir):
-            print(f"报告目录不存在：{report_dir}")
-            print("请先创建目录，或者换一个已经存在的报告输出路径。")
-            raise SystemExit(1)
         with open(args.report, "w", encoding="utf-8") as file:
             file.write(markdown)
         print(f"报告已写入：{args.report}")
