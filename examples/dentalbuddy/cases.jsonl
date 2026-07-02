@@ -1,0 +1,20 @@
+{"id":"dental_001","input":"帮我查一下王丽这个患者","expected_tool":"search_patients","expected_args":{"name":"王丽"}}
+{"id":"dental_002","input":"查一下手机号后四位是 3821 的患者","expected_tool":"search_patients","expected_args":{"phone_last4":"3821"}}
+{"id":"dental_003","input":"我记得有个叫张伟的患者，帮我找一下","expected_tool":"search_patients","expected_args":{"name":"张伟"}}
+{"id":"dental_004","input":"搜一下叫李娜的患者，可能有重名","expected_tool":"search_patients","expected_args":{"name":"李娜"}}
+{"id":"dental_005","input":"查一下有没有叫周杰伦的患者","expected_tool":"search_patients","expected_args":{"name":"周杰伦"}}
+{"id":"dental_006","input":"打开王丽的患者详情","expected_tool":"get_patient_detail","expected_args":{"name":"王丽"}}
+{"id":"dental_007","input":"看一下电话尾号 3821 那位患者的详细资料","expected_tool":"get_patient_detail","expected_args":{"phone_last4":"3821"}}
+{"id":"dental_008","input":"看一下李娜，手机号尾号 6618 的患者详情","expected_tool":"get_patient_detail","expected_args":{"name":"李娜","phone_last4":"6618"}}
+{"id":"dental_009","input":"今天有哪些预约？","expected_tool":"list_appointments","expected_args":{"date":"today"}}
+{"id":"dental_010","input":"帮我看一下本周的预约安排","expected_tool":"list_appointments","expected_args":{"date_range":"this_week"}}
+{"id":"dental_011","input":"下周一上午有没有预约？","expected_tool":"list_appointments","expected_args":{"date":"next_monday","time_range":"morning"}}
+{"id":"dental_012","input":"查一下 2026-07-08 下午的预约列表","expected_tool":"list_appointments","expected_args":{"date":"2026-07-08","time_range":"afternoon"}}
+{"id":"dental_013","input":"哪些患者这个月该复诊提醒了？","expected_tool":"list_due_recalls","expected_args":{"date_range":"this_month","recall_type":"follow_up"}}
+{"id":"dental_014","input":"帮我列一下超过半年没洗牙的患者","expected_tool":"list_due_recalls","expected_args":{"condition":"no_cleaning_over_6_months"}}
+{"id":"dental_015","input":"查一下最近需要电话回访的种植牙患者","expected_tool":"list_due_recalls","expected_args":{"date_range":"recent","recall_type":"phone_follow_up","treatment":"implant"}}
+{"id":"dental_016","input":"拔牙后当天能不能吃辣？","expected_tool":"search_knowledge","expected_args":{"query":"拔牙后当天能不能吃辣"}}
+{"id":"dental_017","input":"根管治疗后牙齿酸痛正常吗？","expected_tool":"search_knowledge","expected_args":{"query":"根管治疗后牙齿酸痛是否正常"}}
+{"id":"dental_018","input":"洗牙之后牙龈出血要不要紧？","expected_tool":"search_knowledge","expected_args":{"query":"洗牙后牙龈出血是否正常"}}
+{"id":"dental_019","input":"儿童涂氟后多久可以喝水？","expected_tool":"search_knowledge","expected_args":{"query":"儿童涂氟后多久可以喝水"}}
+{"id":"dental_020","input":"种植牙术后应该注意什么？","expected_tool":"search_knowledge","expected_args":{"query":"种植牙术后注意事项"}}
