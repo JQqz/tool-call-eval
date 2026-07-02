@@ -1,6 +1,6 @@
-# agent-tool-lab
+# tool-call-eval
 
-`agent-tool-lab` 是一个极简版 Tool Calling 离线评测工具。
+`tool-call-eval` 是一个极简版 Tool Calling 离线评测工具。
 
 它读取两份 JSONL 文件：一份是测试用例，一份是模拟模型输出。然后它会判断模型有没有选对工具、参数有没有传对，并生成一份 Markdown 评测报告。
 
@@ -43,7 +43,7 @@ uv sync
 运行简单示例：
 
 ```bash
-.venv/bin/python -m agent_tool_lab.cli \
+.venv/bin/python -m tool_call_eval.cli \
   --cases examples/simple/cases.jsonl \
   --outputs examples/simple/model_outputs.jsonl \
   --report reports/simple_report.md
@@ -117,7 +117,7 @@ uv sync
 运行方式：
 
 ```bash
-.venv/bin/python -m agent_tool_lab.cli \
+.venv/bin/python -m tool_call_eval.cli \
   --cases examples/dentalbuddy/cases.jsonl \
   --outputs examples/dentalbuddy/model_outputs.jsonl \
   --report reports/dentalbuddy_report.md
@@ -127,7 +127,7 @@ uv sync
 
 ## 当前限制
 
-`agent-tool-lab` v0.1 只做精确匹配。
+`tool-call-eval` v0.1 只做精确匹配。
 
 当前不支持：
 

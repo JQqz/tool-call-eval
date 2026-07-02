@@ -1,4 +1,4 @@
-import agent_tool_lab.report as report
+import tool_call_eval.report as report
 
 
 def test_generate_markdown_report_contains_title_and_summary():

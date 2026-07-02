@@ -1,16 +1,16 @@
 import argparse
 import os
 import sys
-import agent_tool_lab.cases as c
-import agent_tool_lab.evaluator as evaluator
-import agent_tool_lab.report as report
+import tool_call_eval.cases as c
+import tool_call_eval.evaluator as evaluator
+import tool_call_eval.report as report
 
 
 # 命令行入口：读取参数、加载文件、执行评测，并把结果打印到终端。
 def main():
     # 手写帮助信息，避免 argparse 默认输出里的 usage/options 等英文文案。
     if "-h" in sys.argv or "--help" in sys.argv:
-        print("用法：python -m agent_tool_lab.cli [参数]")
+        print("用法：python -m tool_call_eval.cli [参数]")
         print("")
         print("运行工具调用评测：读取测试用例和模型输出，计算工具选择与参数匹配准确率。")
         print("")
@@ -44,7 +44,7 @@ def main():
                     print("如果不想生成报告文件，就不要写这个参数。")
                 else:
                     print("如果想使用默认路径，就不要写这个参数。")
-                print("运行 python -m agent_tool_lab.cli --help 查看用法。")
+                print("运行 python -m tool_call_eval.cli --help 查看用法。")
                 raise SystemExit(1)
 
     # 解析命令行参数；如果用户不传路径，就使用 examples/simple 下的默认样例。
@@ -76,7 +76,7 @@ def main():
     args, unknown_args = parser.parse_known_args()
     if unknown_args:
         print(f"未知参数：{' '.join(unknown_args)}")
-        print("运行 python -m agent_tool_lab.cli --help 查看用法。")
+        print("运行 python -m tool_call_eval.cli --help 查看用法。")
         raise SystemExit(1)
 
     # 报告目录不存在时提前提醒，避免评测跑完后才发现报告写不了。

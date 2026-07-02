@@ -1,4 +1,4 @@
-import agent_tool_lab.cases as cases
+import tool_call_eval.cases as cases
 
 
 def test_load_cases_reads_jsonl(tmp_path):

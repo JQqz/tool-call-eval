@@ -1,4 +1,4 @@
-import agent_tool_lab.evaluator as evaluator
+import tool_call_eval.evaluator as evaluator
 
 
 def test_evaluate_case_pass():

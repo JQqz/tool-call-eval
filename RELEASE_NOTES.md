@@ -2,7 +2,7 @@
 
 ## v0.1.0
 
-`agent-tool-lab` v0.1.0 是第一个离线评测版本，用来学习和演示 LLM Tool Calling 的基础评测流程。
+`tool-call-eval` v0.1.0 是第一个离线评测版本，用来学习和演示 LLM Tool Calling 的基础评测流程。
 
 ### 这个版本支持
 
@@ -34,7 +34,7 @@ uv sync
 运行 simple 示例：
 
 ```bash
-.venv/bin/python -m agent_tool_lab.cli \
+.venv/bin/python -m tool_call_eval.cli \
   --cases examples/simple/cases.jsonl \
   --outputs examples/simple/model_outputs.jsonl \
   --report reports/simple_report.md
@@ -43,7 +43,7 @@ uv sync
 运行 DentalBuddy Mock 示例：
 
 ```bash
-.venv/bin/python -m agent_tool_lab.cli \
+.venv/bin/python -m tool_call_eval.cli \
   --cases examples/dentalbuddy/cases.jsonl \
   --outputs examples/dentalbuddy/model_outputs.jsonl \
   --report reports/dentalbuddy_report.md
